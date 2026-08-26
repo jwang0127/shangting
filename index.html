@@ -1,486 +1,403 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>今日九场伤停分析 · 2026年8月25日</title>
-<style>
-  :root{
-    --bg:#0f1115; --card:#181b22; --card-hover:#1f232c;
-    --text:#e6e8eb; --muted:#9aa0a8; --border:#262b36;
-    --new:#ff4757; --old:#ffa502; --susp:#747d8c; --ok:#2ed573;
-    --accent:#3742fa;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-    background:var(--bg); color:var(--text); line-height:1.6;
-    padding:24px 16px 60px;
-  }
-  .wrap{max-width:960px;margin:0 auto}
-  header{
-    text-align:center; margin-bottom:32px; padding-bottom:24px;
-    border-bottom:1px solid var(--border);
-  }
-  h1{font-size:28px;font-weight:800;letter-spacing:-0.5px}
-  .date{color:var(--muted);font-size:14px;margin-top:6px}
-  .legend{
-    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
-    margin-top:16px;font-size:13px;
-  }
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .dot{width:10px;height:10px;border-radius:50%}
-  .dot.new{background:var(--new)}
-  .dot.old{background:var(--old)}
-  .dot.susp{background:var(--susp)}
-
-  .match{
-    background:var(--card); border:1px solid var(--border);
-    border-radius:16px; padding:24px; margin-bottom:24px;
-    transition:.2s;
-  }
-  .match:hover{border-color:#3a4150;background:var(--card-hover)}
-  .match-title{
-    font-size:18px;font-weight:700;margin-bottom:4px;
-    display:flex;align-items:center;gap:10px
-  }
-  .match-no{
-    background:var(--accent);color:#fff;font-size:12px;
-    padding:2px 10px;border-radius:20px;font-weight:600
-  }
-  .section-label{
-    font-size:12px;text-transform:uppercase;letter-spacing:1px;
-    color:var(--muted);margin:20px 0 10px;font-weight:600;
-    display:flex;align-items:center;gap:8px
-  }
-  .section-label::after{
-    content:'';flex:1;height:1px;background:var(--border)
-  }
-
-  .injuries{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:640px){.injuries{grid-template-columns:1fr}}
-  .team-col h4{
-    font-size:14px;color:var(--text);margin-bottom:10px;
-    padding-bottom:6px;border-bottom:1px dashed var(--border)
-  }
-  .player{
-    background:rgba(255,255,255,.03);border-radius:10px;
-    padding:10px 12px;margin-bottom:8px;font-size:14px
-  }
-  .player .name{font-weight:600}
-  .player .detail{color:var(--muted);font-size:12.5px;margin-top:2px}
-  .tag{
-    display:inline-block;font-size:11px;font-weight:700;
-    padding:1px 8px;border-radius:6px;margin-right:6px;
-    vertical-align:middle
-  }
-  .tag.new{background:rgba(255,71,87,.15);color:var(--new)}
-  .tag.old{background:rgba(255,165,2,.15);color:var(--old)}
-  .tag.susp{background:rgba(116,125,140,.2);color:#aeb4bd}
-
-  .analysis{
-    background:rgba(55,66,250,.06);
-    border-left:3px solid var(--accent);
-    border-radius:0 10px 10px 0;
-    padding:14px 16px;margin-top:8px;font-size:14px;
-    color:#c8ccd2
-  }
-  .analysis p{margin-bottom:8px}
-  .analysis p:last-child{margin-bottom:0}
-  .analysis strong{color:var(--text)}
-
-  footer{
-    text-align:center;color:var(--muted);font-size:12px;
-    margin-top:48px;padding-top:24px;border-top:1px solid var(--border)
-  }
-  .empty{
-    text-align:center;color:var(--ok);font-size:13px;
-    padding:8px 12px;background:rgba(46,213,115,.08);
-    border-radius:8px;margin-bottom:8px
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日伤停分析 - ShangTing</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 30px;
+        }
+        .match-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .match-header {
+            background: #1a73e8;
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .table-wrapper {
+            padding: 15px;
+        }
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .team-col {
+            flex: 1;
+            min-width: 280px;
+        }
+        .team-name {
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.05em;
+        }
+        .player-item {
+            background: #f9f9f9;
+            border-left: 4px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.82em;
+            font-weight: bold;
+            margin-right: 5px;
+            color: #fff;
+        }
+        .tag-new { background-color: #e53935; }
+        .tag-old { background-color: #fb8c00; }
+        .tag-stop { background-color: #757575; }
+        .player-name {
+            font-weight: 600;
+            color: #222;
+        }
+        .injury-time {
+            font-size: 0.88em;
+            color: #666;
+            margin-top: 4px;
+        }
+        .team-performance {
+            font-size: 0.88em;
+            color: #1b5e20;
+            background: #e8f5e9;
+            border-radius: 4px;
+            padding: 6px 8px;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .team-performance::before {
+            content: "📊 缺阵期间队伍表现：";
+            font-weight: bold;
+        }
+        .analysis-text {
+            font-size: 0.92em;
+            color: #444;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .note {
+            background: #fff3e0;
+            border-left: 4px solid #fb8c00;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>⚽ 今日九场伤停分析</h1>
-    <div class="date">2026年8月25日 · 周二</div>
-    <div class="legend">
-      <span><i class="dot new"></i>新伤（近1-2周）</span>
-      <span><i class="dot old"></i>老伤（赛季初/更早）</span>
-      <span><i class="dot susp"></i>停赛/纪律</span>
-    </div>
-  </header>
 
-  <!-- 001 金泉尚武 VS 全北现代 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">001</span>韩K联 · 金泉尚武 VS 全北现代</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 金泉尚武</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">姜柱赫</span>（前锋）
-          <div class="detail">长期伤员，对主力框架影响有限</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">金敏圭</span>（后卫）
-          <div class="detail">长期伤员，对主力框架影响有限</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 全北现代</h4>
-        <div class="empty">✅ 公开材料未给出明确伤停名单，以赛前最终名单为准</div>
-      </div>
-    </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>金泉尚武</strong>：仅两名长期伤员缺席，主力框架完整。4-1-4-1低位防守+高效反击，主场近10场5场不败、连续4场联赛不败且近2场零封。高强度压迫对体能要求极高，一旦前场围抢未果，中后场衔接空间会被全北经验球员利用。</p>
-      <p><strong>全北现代</strong>：锋线核心孔帕尼奥已复出，极大改善前场终结；李昇祐近10场4球占球队总进球44%。中场控制力+边路推进成熟度占优，但上轮1-3不敌济州联、客场表现不再具绝对统治力，金泉主场"平局哲学"（赛季平局率55%）是明确战术风险点。</p>
-    </div>
-  </div>
+<div class="container">
 
-  <!-- 002 济州SK VS 浦项制铁 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">002</span>韩K联 · 济州SK VS 浦项制铁</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 济州SK</h4>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">菲格雷多</span>（主力中卫）
-          <div class="detail">红牌停赛，后防核心突发减员</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 浦项制铁</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">佐治特斯拿</span>（外援前锋）
-          <div class="detail">伤缺，锋线人手捉襟见肘</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">祖连奴洛查</span>（前锋）
-          <div class="detail">足踝问题无法出战</div>
-        </div>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">西矢健人</span>（中场）
-          <div class="detail">停赛，中场拦截能力受损</div>
-        </div>
-      </div>
+    <h1>⚽ 今日伤停分析（2026年8月26日）</h1>
+    
+    <div class="note">
+        💡 标注「老伤」的球员，额外附上其在缺阵/长期伤停期间，所在球队的整体表现走势（数据综合自纳米体育赛果库及各媒体赛前情报）。
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>济州SK</strong>：主力中卫停赛让本就主场场均仅进1.0球的济州雪上加霜，但队长李昌珉伤愈回归补强中场出球调度。夏窗大规模人员流失已迫使球队重组，本场需依赖中场掌控节奏+定位球寻找破门。</p>
-      <p><strong>浦项制铁</strong>：近6轮1胜5负、进攻端场均仅0.67球火力严重不足，外援双前锋同时缺阵+中场停赛，客场进攻端缺少稳定得分点；但老将后卫申光勋停赛一场后复出，防线经验回补。济州SK可依托主场中场控制+浦项残缺锋线争取不败。</p>
-    </div>
-  </div>
 
-  <!-- 003 达曼协定 VS 利雅得胜利 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">003</span>沙特联 · 达曼协定 VS 利雅得胜利</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 达曼协定</h4>
-        <div class="empty">✅ 公开渠道未检索到可靠伤停明细，主力框架可完整出战</div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 利雅得胜利</h4>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">加奈姆</span>（主力右后卫）
-          <div class="detail">伤缺，边路防守存在明显短板</div>
+    <!-- 001 大田市民 VS 蔚山现代 -->
+    <div class="match-card">
+        <div class="match-header">周三001 韩职 大田市民 VS 蔚山现代 (08-26 18:30)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 大田市民</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">严元相（中场）</span>
+                        <div class="injury-time">赛季初脚踝受伤长期缺阵</div>
+                        <div class="team-performance">球队近10场各项赛事3胜4平3负，主场胜率仅9.1%，但上轮主场3-0大胜江原FC止颓</div>
+                        <div class="analysis-text">▶ 战术影响：中场调度核心长期缺席，中场组织能力下降，向前出球质量降低。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">迪奥戈（前锋）</span>
+                        <div class="injury-time">长期伤缺</div>
+                        <div class="team-performance">球队近10场各项赛事3胜4平3负，主场胜率仅9.1%</div>
+                        <div class="analysis-text">▶ 战术影响：锋线缺少稳定支点，轮换深度受损。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 蔚山现代</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">法里亚斯（头号中锋）</span>
+                        <div class="injury-time">跟腱手术，赛季报销</div>
+                        <div class="team-performance">球队近6轮联赛仅1胜2平3负，主场连续两轮落败丢5球</div>
+                        <div class="analysis-text">▶ 战术影响：进攻端基本靠亚戈·卡列洛一人支撑，肋部接应点少了半套。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">高丞范（中场）</span>
+                        <div class="injury-time">长期伤缺</div>
+                        <div class="team-performance">球队近6轮联赛仅1胜，周中韩国杯0-1负于K3级别蔚山市民队</div>
+                        <div class="analysis-text">▶ 战术影响：中轴线被拆解到只剩骨架，前场运转只能靠单点硬突。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">阿奇迪</span>（门将）
-          <div class="detail">休战</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>达曼协定</strong>：新帅帕帕斯治下新赛季两轮全胜、累计5球，维纳尔杜姆坐镇中场是攻防转换核心。两轮均有丢球、防线稳定性不足，但本场无明确伤停报告，主力框架可完整出战。</p>
-      <p><strong>利雅得胜利</strong>：波斯特科格鲁的高位逼抢体系极度消耗体能，7天2连客的体能红区+主力右后卫缺阵，防线容错率遭遇断崖式下跌。C罗复出首发+菲利克斯状态火热（三场四球）保障前场火力，但达曼协定的4-2-3-1中低位反击恰好克制高位防线，利雅得胜利后场东拼凑凑的防线面临巨大反击风险。</p>
-    </div>
-  </div>
 
-  <!-- 004 斯托克城 VS 赫尔城 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">004</span>英冠 · 斯托克城 VS 赫尔城</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 斯托克城</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">克雷斯维尔</span>（中卫）
-          <div class="detail">伤缺，防线对抗受损</div>
+    <!-- 002 安养FC VS 仁川联 -->
+    <div class="match-card">
+        <div class="match-header">周三002 韩职 安养FC VS 仁川联 (08-26 18:30)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 安养FC</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">尤基奇、艾尔顿（前锋）</span>
+                        <div class="injury-time">腹股沟伤势，长期缺阵</div>
+                        <div class="team-performance">联赛四连败，进2球失14球；上轮主场0-7惨败首尔FC</div>
+                        <div class="analysis-text">▶ 战术影响：两名外援前锋长期缺席，反击速度和终结能力大打折扣。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">金英彬、李台熙（后卫/边卫）</span>
+                        <div class="injury-time">长期伤缺</div>
+                        <div class="team-performance">联赛四连败，主场12战仅2胜，胜率17%；近6场场均失球2.67球</div>
+                        <div class="analysis-text">▶ 战术影响：防线轮换捉襟见肘，结合0-7惨败的心理阴影，本场防线容错率极低。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 仁川联</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">郑元镇、文志焕、吕承元（中场）</span>
+                        <div class="injury-time">长期伤缺</div>
+                        <div class="team-performance">近6轮3胜3平保持不败，进9球失6球；上轮客场1-0小胜光州FC</div>
+                        <div class="analysis-text">▶ 战术影响：中场轮换深度下降，但主力双后腰框架尚在。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">李泰熙（门将）</span>
+                        <div class="injury-time">长期伤缺</div>
+                        <div class="team-performance">球队近10场各项赛事4胜3平3负，客场11战5胜4平2负</div>
+                        <div class="analysis-text">▶ 战术影响：替补门将已适应比赛节奏，对防线影响不大。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">拉明·西塞</span>（边锋）
-          <div class="detail">伤缺，边路突破受损</div>
-        </div>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">英厄尔松</span>（中场）
-          <div class="detail">停赛，中路跑动、对抗和向前输送受影响</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">拉瓦尔</span>（中场）
-          <div class="detail">身体不适，出战待定</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">查马德乌</span>（右后卫）
-          <div class="detail">身体不适，出战待定</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 赫尔城</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">巴特兰</span>（门将）
-          <div class="detail">伤缺</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">马塔佐/格亚比/桑布拉诺</span>（中场）
-          <div class="detail">均因伤缺阵</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">格尔哈特</span>（前锋）
-          <div class="detail">伤缺</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">雅各布/查利·休斯/莱奥·德里克</span>（后卫）
-          <div class="detail">伤缺</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">刘易·科伊尔</span>（队长/右后卫）
-          <div class="detail">出战待定</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">守田英正</span>（中场）
-          <div class="detail">出战待定</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">诺贝尔·门迪</span>（中卫）
-          <div class="detail">出战待定</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>斯托克城</strong>：中后场多位置减员。若拉瓦尔+查马德乌最终无法出场，不仅需重组中场，右路防守与推进也要调整。但主场作战+赫尔城伤情更重，斯托克城可加强前场逼抢，迫使对手临时拼凑的后场犯错。</p>
-      <p><strong>赫尔城</strong>：伤情横跨门将、防线、中场、锋线，多达10人缺阵或出战成疑。三名中场同时伤缺直接影响控球、拦截和攻防转换；若待定三人全部缺席，将同时失去右路支撑、中场组织和中卫轮换。赫尔城本场只能收紧阵型，以直接传球和反击减少中场消耗，斯托克城主场拿分概率显著提升。</p>
-    </div>
-  </div>
 
-  <!-- 005 博洛尼亚 VS 拉齐奥 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">005</span>意甲 · 博洛尼亚 VS 拉齐奥</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 博洛尼亚</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">卡萨莱</span>（中卫）
-          <div class="detail">肌肉伤病缺阵，单一位置减员</div>
+    <!-- 005 雅典AEK VS 索列夫 -->
+    <div class="match-card">
+        <div class="match-header">周三005 欧冠 雅典AEK VS 索列夫 (08-27 03:00)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 雅典AEK</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">布拉什、桑加雷（中场）</span>
+                        <div class="injury-time">肌肉受伤长期缺阵</div>
+                        <div class="team-performance">公开材料未查到精确缺阵区间战绩，球队希腊超首轮4-0取胜</div>
+                        <div class="analysis-text">▶ 战术影响：中场轮换受损，但核心皮埃尔已离队，现有中场本就处于磨合期。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">基里洛夫（边锋）</span>
+                        <div class="injury-time">膝伤长期无法出战</div>
+                        <div class="team-performance">球队欧冠资格赛首回合0-0索列夫，进攻端攻坚乏力</div>
+                        <div class="analysis-text">▶ 战术影响：边路爆点缺失，替补边锋攻坚能力有限。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 索列夫</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">阿克拉姆·布拉什（中场）</span>
+                        <div class="injury-time">肌肉受伤长期缺阵</div>
+                        <div class="team-performance">球队6场欧战4胜2平仅失3球，首回合0-0已证明能防住雅典AEK</div>
+                        <div class="analysis-text">▶ 战术影响：中场组织核心缺失，但整体防守体系运转良好。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">卡姆德姆（后卫）</span>
+                        <div class="injury-time">膝伤长期缺阵</div>
+                        <div class="team-performance">球队6场欧战4胜2平仅失3球，是本届资格赛防守最稳固的球队之一</div>
+                        <div class="analysis-text">▶ 战术影响：后防人手紧缺，但替补席已磨合出成熟防线体系。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 拉齐奥</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">卡塔尔迪</span>（中场核心）
-          <div class="detail">耻骨炎症/腹股沟手术，预计休战至9月底/10月</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">罗马尼奥利</span>（队长/中卫）
-          <div class="detail">肌腱炎症，赛前随队出征但状态未达最佳</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">吉戈</span>（中卫）
-          <div class="detail">背部问题</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">帕特里克</span>（中卫）
-          <div class="detail">肌肉伤</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">塔瓦雷斯</span>（左路）
-          <div class="detail">膝部炎症，出战存疑</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">伊萨克森</span>（边锋）
-          <div class="detail">腹股沟手术</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">富拉内托</span>（门将）
-          <div class="detail">十字韧带手术长期休养，二门三门同时伤停，新援门将曼达斯直接首发</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>博洛尼亚</strong>：仅卡萨莱一名中卫缺阵，维蒂克右脚踝伤已恢复合练、大概率出场。4-3-3高位压迫+多夫比克支点可完整执行。</p>
-      <p><strong>拉齐奥</strong>：中轴线大面积减员，是近年最严重伤病潮。三名中卫同时缺阵迫使防线重组，替补组合默契不足；左路宽度因塔瓦雷斯存疑受损。新帅加图索的4-3-3高强度逼抢很吃阵容厚度，被迫使用多埃基+普罗夫斯特高这套磨合不足的组合。整体防线站位预计降低、减少高位压迫。</p>
-    </div>
-  </div>
 
-  <!-- 006 富勒姆 VS 切尔西 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">006</span>英超 · 富勒姆 VS 切尔西</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 富勒姆</h4>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">安德森</span>（中卫）
-          <div class="detail">上赛季末轮红牌停赛延续到本场，防线核心突发减员</div>
+    <!-- 006 采列 VS 布拉迪斯 -->
+    <div class="match-card">
+        <div class="match-header">周三006 欧冠 采列 VS 布拉迪斯 (08-27 03:00)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 采列</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">卢卡斯·贝格尔（后卫）</span>
+                        <div class="injury-time">5月14日起胫骨损伤长期缺阵</div>
+                        <div class="team-performance">球队近6场2胜3平1负，近5场1胜3平1负，呈现"守强于攻"形态</div>
+                        <div class="analysis-text">▶ 战术影响：主力中卫长期缺席，后防默契度存疑。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">乔斯特·皮塞克（中场）</span>
+                        <div class="injury-time">4月26日起膝关节受伤长期缺阵</div>
+                        <div class="team-performance">球队近6场2胜3平1负，场均进1.8球失1.6球，防守端存在漏洞</div>
+                        <div class="analysis-text">▶ 战术影响：中场屏障缺失，防守覆盖面积减小。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 布拉迪斯</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">尼诺·马切利（前锋）</span>
+                        <div class="injury-time">4月23日起长期伤缺</div>
+                        <div class="team-performance">球队近5场3胜2平不败，场均进2.6球，国内联赛不败</div>
+                        <div class="analysis-text">▶ 战术影响：长期伤号，不影响当前锋线主力框架。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">斯波拉尔（队长/头号射手）</span>
+                        <div class="injury-time">7月22日肌肉受伤，接近复出</div>
+                        <div class="team-performance">球队在其缺阵期间近5场3胜2平不败，攻防体系运转良好</div>
+                        <div class="analysis-text">▶ 战术影响：作为头号射手若缺席，锋线终结能力大减；若复出则能极大提升士气。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">汤姆·凯尔尼</span>（队长/中场）
-          <div class="detail">左膝手术伤缺，中场节拍器缺失</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 切尔西</h4>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">福法纳</span>（中卫）
-          <div class="detail">红牌停赛，后防突发减员</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">亨德森</span>（中场）
-          <div class="detail">手腕受伤缺阵</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">安塞尔米诺</span>（中卫）
-          <div class="detail">腿筋伤势未愈</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">埃梅加</span>（前锋）
-          <div class="detail">因伤无法出战</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>富勒姆</strong>：一防一中两大骨干同时缺阵，中后场骨架被拆大半。预计左后卫巴锡客串中卫与昆卡搭档临时组合。阿韦洛亚确认除凯尔尼外其余球员均可出战，新援加西亚大概率首发踢中锋。富勒姆主场对抗凶悍、熟悉德比氛围，会全力拼抢，但后场第一脚出球面临切尔西前场压迫极大考验。</p>
-      <p><strong>切尔西</strong>：新帅阿隆索3-4-2-1首秀即面临后防人手紧缺——福法纳停赛+安塞尔米诺伤缺，里斯·詹姆斯可能客串中卫。但帕尔默、凯塞多、詹姆斯等核心主力能够出场，首发底子依旧雄厚。切尔西球员天赋、阵容厚度占上风，新帅+大批新援的正式联赛默契有待观察，客场德比想轻松拿下并不容易。</p>
-    </div>
-  </div>
 
-  <!-- 007 罗马 VS 佛罗伦萨 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">007</span>意甲 · 罗马 VS 佛罗伦萨</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 罗马</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">洛伦佐·佩莱格里尼</span>（队长/中场核心）
-          <div class="detail">大腿拉伤缺阵，进攻发起点缺失</div>
+    <!-- 007 维京 VS 萨迪纳摩 -->
+    <div class="match-card">
+        <div class="match-header">周三007 欧冠 维京 VS 萨迪纳摩 (08-27 03:00)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 维京</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">安德斯·贝尔特尔森（中卫）</span>
+                        <div class="injury-time">脚部骨折手术，缺席长达数月</div>
+                        <div class="team-performance">公开材料未查到精确缺阵区间战绩，首回合客场2-2逼平萨迪纳摩</div>
+                        <div class="analysis-text">▶ 战术影响：防线核心长期缺席，中卫组合被迫拆散重组。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">马丁·罗塞特（后卫）</span>
+                        <div class="injury-time">膝伤恢复期长期缺阵</div>
+                        <div class="team-performance">首回合客场2-2逼平对手，但后防线可用之人寥寥无几</div>
+                        <div class="analysis-text">▶ 战术影响：后防线人员紧缺，本场主场争胜压力大。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 萨迪纳摩</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">卢卡·斯托亚科维奇（前锋）</span>
+                        <div class="injury-time">跖骨骨折长期缺阵</div>
+                        <div class="team-performance">球队近期各项赛事保持不败，首回合主场2-2战平维京</div>
+                        <div class="analysis-text">▶ 战术影响：轮换前锋缺失，但主力中前场框架完整，不影响大局。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">穆罕默德·巴</span>（中场）
-          <div class="detail">因伤缺阵，中场轮换选择减少</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 佛罗伦萨</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">帕里西</span>（左后卫）
-          <div class="detail">因伤缺阵，左路攻防覆盖和替补深度下降</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>罗马</strong>：佩莱格里尼负责前场串联、定位球和最后一传，他的缺席会削弱罗马在肋部的创造力，进攻可能更多依靠边路推进和前锋个人能力。加斯佩里尼的3-4-2-1体系下，迪巴拉将承担更多回撤接应与创造力输出。高位压迫后能否迅速完成二次控球也会受到一定影响。主场奥林匹克球场+新帅首秀战意，罗马仍被看好掌握球权。</p>
-      <p><strong>佛罗伦萨</strong>：帕里西主要负责边路防守、套边推进和传中，缺阵后若佛罗伦萨继续通过边后卫前压制造宽度，替代者的回防速度和防守站位将成为考验；若减少左路压上，则可能把更多进攻重心转向右路或中路组织。夏窗重金补强后主打5-4-1防守反击，客场战术执行力强，不易大败。</p>
-    </div>
-  </div>
 
-  <!-- 008 LASK林茨 VS 凯尔特人 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">008</span>欧冠资格赛 · LASK林茨 VS 凯尔特人</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 LASK林茨</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">拉米兹·哈拉卡特</span>（前锋）
-          <div class="detail">前交叉韧带损伤长期缺阵</div>
+    <!-- 008 里昂 VS 费内巴切 -->
+    <div class="match-card">
+        <div class="match-header">周三008 欧冠 里昂 VS 费内巴切 (08-27 03:00)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 里昂</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">舒尔茨（进攻核心）</span>
+                        <div class="injury-time">上赛季法甲27场11球3助，膝伤缺阵</div>
+                        <div class="team-performance">球队资格赛首回合客场1-2输给布拉格斯巴达，回到主场3-0翻盘晋级，调整能力在线</div>
+                        <div class="analysis-text">▶ 战术影响：前场创造力大打折扣，但比斯特鲁普复出、新援巴彻和阿特卡梅完成注册，中后场厚度有补充。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 费内巴切</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">塔利斯卡（攻击核心/头号射手）</span>
+                        <div class="injury-time">资格赛4场4球，因伤缺阵</div>
+                        <div class="team-performance">欧冠资格赛4场3胜1平仅丢1球，两个主场全部零封；但土超揭幕战轮换6主力后客场1-2输给根克勒比利吉</div>
+                        <div class="analysis-text">▶ 战术影响：最稳的得分点直接没了，进攻端体系性崩塌。新援卢卡库身体未达100%，顶多替补登场。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">居诺克（主力门将）、瑟云聚（主力中卫）</span>
+                        <div class="injury-time">肌肉挫伤/受伤缺阵</div>
+                        <div class="team-performance">资格赛防守底子硬（4场仅失1球），但主力门将+中卫同时缺阵，半条防线需重组</div>
+                        <div class="analysis-text">▶ 战术影响：门将位置无人可用，防线被迫重组，体系性受损。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 凯尔特人</h4>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">阿利斯泰尔·约翰斯顿</span>（右后卫）
-          <div class="detail">腿筋受伤，预计缺阵六周，无缘本场</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">若塔</span>（边锋）
-          <div class="detail">仍处于膝盖重伤恢复期</div>
-        </div>
-        <div class="player">
-          <span class="tag susp">停赛</span><span class="name">亚历克斯·张伯伦</span>（中场）
-          <div class="detail">因效力贝西克塔斯期间的红牌，本场继续停赛</div>
-        </div>
-        <div class="player">
-          <span class="tag new">新伤</span><span class="name">特拉斯蒂</span>（中卫）
-          <div class="detail">赛前训练缺席，若无法出战斯凯尔斯将顶替其搭档卡特-维克斯</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>LASK林茨</strong>：首回合因伤被换下的三名核心——队长萨沙·霍瓦斯、前锋塞缪尔·阿德尼兰、右翼卫卡斯珀·约根森均无新增伤病，本场可以出战。主场必须全力压上，哈拉卡特长期缺阵让锋线终结选择减少，但三核同时健康是翻盘唯一指望。</p>
-      <p><strong>凯尔特人</strong>：首回合3-0完胜，本场可适度轮换。约翰斯顿六周缺阵+若塔长期伤缺+张伯伦停赛，右路攻防与中场厚度受损；18岁小将多诺万首回合表现亮眼预计继续出任右后卫。客场作战的凯尔特人有资本以稳为主，保住3球优势即可晋级。</p>
-    </div>
-  </div>
 
-  <!-- 009 诺丁汉森林 VS 利兹联 -->
-  <div class="match">
-    <div class="match-title"><span class="match-no">009</span>英联赛杯 · 诺丁汉森林 VS 利兹联</div>
-    <div class="section-label">伤停名单</div>
-    <div class="injuries">
-      <div class="team-col">
-        <h4>🏠 诺丁汉森林</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">吉布斯-怀特</span>（中场组织者）
-          <div class="detail">缺阵，进攻创造力大打折扣</div>
+    <!-- 010 皇马 VS 皇家社会 -->
+    <div class="match-card">
+        <div class="match-header">周三010 西甲 皇马 VS 皇家社会 (08-27 03:00)</div>
+        <div class="table-wrapper">
+            <div class="team-section">
+                <div class="team-col">
+                    <span class="team-name">🏠 皇马</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">米利唐（中卫）</span>
+                        <div class="injury-time">十字韧带重伤长期缺阵，预计9月初复出</div>
+                        <div class="team-performance">季前友谊赛3-0胜沙尔克04、1-0胜拉科鲁尼亚、2-1胜费伦茨瓦罗斯、2-2平佛罗伦萨；西甲首轮客场2-1绝杀西班牙人</div>
+                        <div class="analysis-text">▶ 战术影响：后防线核心长期缺席，迫使安切洛蒂改变阵型，但替补门将卢宁表现未令人失望，新援科纳特可弥补空缺。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">罗德里戈（前锋）</span>
+                        <div class="injury-time">伤缺，预计9月底回归</div>
+                        <div class="team-performance">首轮客场2-1西班牙人，姆巴佩、维尼修斯、贝林厄姆、新援埃斯皮组成的新攻击线运转良好</div>
+                        <div class="analysis-text">▶ 战术影响：左边锋位置轮换深度下降，但新援前锋深度足够，火力依然强大。</div>
+                    </div>
+                </div>
+                <div class="team-col">
+                    <span class="team-name">✈️ 皇家社会</span>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">奥德里奥索拉（右后卫）</span>
+                        <div class="injury-time">十字韧带撕裂赛季报销</div>
+                        <div class="team-performance">西甲首轮客场0-1负于皇家贝蒂斯；友谊赛阶段遭遇三连败（1-3负切尔西、1-2负科隆、1-2负图卢兹）</div>
+                        <div class="analysis-text">▶ 战术影响：右路防守存在天然漏洞，面对维尼修斯的冲击必须靠中场协防。</div>
+                    </div>
+                    <div class="player-item">
+                        <span class="tag tag-old">老伤</span><span class="player-name">戈罗萨特吉、马林（中场/后卫）</span>
+                        <div class="injury-time">伤缺</div>
+                        <div class="team-performance">球队首轮开门黑，进攻端未能打开局面，客战能力存隐忧</div>
+                        <div class="analysis-text">▶ 战术影响：轮换深度受损，中前场人员吃紧。</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">耶茨</span>（中场）
-          <div class="detail">缺阵</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">萨沃纳</span>（后卫）
-          <div class="detail">缺阵</div>
-        </div>
-      </div>
-      <div class="team-col">
-        <h4>✈️ 利兹联</h4>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">威利·尼翁托</span>（边锋）
-          <div class="detail">腿筋受伤缺阵</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">加布里埃尔·古德蒙德松</span>（左后卫）
-          <div class="detail">腿筋受伤缺阵</div>
-        </div>
-        <div class="player">
-          <span class="tag old">老伤</span><span class="name">伊利亚·格鲁耶夫</span>（中场）
-          <div class="detail">膝盖半月板伤恢复中，本场无法出战</div>
-        </div>
-      </div>
     </div>
-    <div class="section-label">战术分析</div>
-    <div class="analysis">
-      <p><strong>诺丁汉森林</strong>：三名核心同时缺阵——吉布斯-怀特、耶茨、萨沃纳。格拉斯纳4-2-3-1体系下，吉布斯-怀特的缺阵让进攻组织的重任将落在其他人身上。杯赛格拉斯纳确认将进行适度轮换，主场作战+复仇战意强烈（三天内两次做客城市球场），但创造力缺失是明确短板。</p>
-      <p><strong>利兹联</strong>：法尔克明确表示"会有一些轮换，但不会是完全不同的阵容"，整体框架更为完整。新援中卫尼科·埃尔维迪（从门兴格拉德巴赫加盟）已完成注册，本场有望迎来首秀补强防线。防守反击战术执行力依然可靠。三天内两次做客城市球场，利兹联已经证明他们能在客场限制森林的进攻。</p>
-    </div>
-  </div>
 
-  <footer>
-    伤停信息综合俱乐部公告、主帅赛前发布会、权威数据站及主流媒体赛前综述<br>
-    最终首发与伤停以各队赛前1小时官方名单为准 · 页面由 GitHub Pages 托管
-  </footer>
+    <div class="footer">
+        © 2026 ShangTing Data | 伤停信息综合自赛前发布会及权威媒体 | 队伍表现数据综合自纳米体育赛果库及各媒体赛前情报<br>
+        最终名单以赛前1小时官方大名单为准
+    </div>
+
 </div>
+
 </body>
 </html>
