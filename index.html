@@ -18,6 +18,7 @@
     --home-color: #58a6ff;
     --away-color: #bc8cff;
   }
+  * { box-sizing: border-box; }
   body {
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -27,7 +28,8 @@
     padding: 20px;
   }
   .container { max-width: 1000px; margin: 0 auto; }
-  h1 { text-align: center; color: var(--text-main); margin-bottom: 40px; }
+  h1 { text-align: center; color: var(--text-main); margin-bottom: 10px; }
+  .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 0.9rem; }
   .match-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -43,8 +45,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .match-title { font-size: 1.2rem; font-weight: bold; }
+  .match-title { font-size: 1.1rem; font-weight: bold; }
   .match-league { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
   .match-teams { font-size: 0.95rem; color: var(--text-muted); text-align: right; }
   .teams-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 20px; padding: 20px; }
@@ -53,8 +57,8 @@
   .home .team-name { color: var(--home-color); }
   .away .team-name { color: var(--away-color); }
   .section-label {
-    display: inline-block; padding: 2px 8px; border-radius: 4px;
-    font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; color: #fff;
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 0.8rem; font-weight: bold; margin: 15px 0 10px; color: #fff;
   }
   .label-new { background: var(--new-color); }
   .label-old { background: var(--old-color); }
@@ -71,39 +75,48 @@
   .player-pos { font-weight: normal; color: var(--text-muted); font-size: 0.85rem; margin-left: 8px; }
   .injury-date { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
   .player-impact { font-size: 0.9rem; margin-top: 8px; }
-  .fit-note { font-size: 0.9rem; color: var(--text-muted); padding: 10px; background: #2d333b; border-radius: 6px; }
+  .player-impact b { color: var(--text-main); }
+  .fit-note { font-size: 0.9rem; color: var(--text-muted); padding: 10px; background: #2d333b; border-radius: 6px; margin-bottom: 10px; }
+  .empty-note { font-size: 0.9rem; color: var(--text-muted); padding: 20px; text-align: center; }
   .team-form {
     margin-top: 15px; padding: 12px; background: #22262d;
-    border-radius: 6px; font-size: 0.9rem; border-top: 1px solid var(--border-color);
+    border-radius: 6px; font-size: 0.88rem; border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
   }
-  footer { margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+  footer { margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding-bottom: 40px; }
   .legend span { margin: 0 10px; }
   .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
   @media (max-width: 768px) {
     .teams-grid { grid-template-columns: 1fr; }
     .team-divider { display: none; }
+    .match-header { flex-direction: column; align-items: flex-start; }
+    .match-teams { text-align: left; }
   }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>2026-27赛季 足球赛事伤停分析</h1>
+  <div class="subtitle">数据截至2026年8月29日 · 分类标准：新伤 / 老伤 / 停赛</div>
 
-  <!-- 1. 示例场次 (根据实际输入补充) -->
+  <!-- 占位提示：第1-10场请按相同结构补充 -->
   <div class="match-card">
     <div class="match-header">
-      <div><div class="match-title">1. 示例主队 VS 示例客队</div><div class="match-league">示例联赛</div></div>
-      <div class="match-teams">主：示例主队　客：示例客队</div>
+      <div>
+        <div class="match-title">1-10. 赛事占位</div>
+        <div class="match-league">各联赛</div>
+      </div>
+      <div class="match-teams">主：待补充　客：待补充</div>
     </div>
     <div class="teams-grid">
       <div class="team-col home">
-        <div class="team-name">示例主队（主）</div>
-        <div class="fit-note">阵容齐整，无新增伤停，主力框架完整。</div>
+        <div class="team-name">主队（主）</div>
+        <div class="empty-note">第1-10场结构与此相同，请将对应比赛代码按此格式填入</div>
       </div>
       <div class="team-divider"></div>
       <div class="team-col away">
-        <div class="team-name">示例客队（客）</div>
-        <div class="fit-note">阵容齐整，无新增伤停，主力框架完整。</div>
+        <div class="team-name">客队（客）</div>
+        <div class="empty-note">第1-10场结构与此相同，请将对应比赛代码按此格式填入</div>
       </div>
     </div>
   </div>
@@ -111,7 +124,10 @@
   <!-- 11. 柏林联合 VS 法兰克福 -->
   <div class="match-card">
     <div class="match-header">
-      <div><div class="match-title">11. 柏林联合 VS 法兰克福</div><div class="match-league">德甲</div></div>
+      <div>
+        <div class="match-title">11. 柏林联合 VS 法兰克福</div>
+        <div class="match-league">德甲</div>
+      </div>
       <div class="match-teams">主：柏林联合　客：法兰克福</div>
     </div>
     <div class="teams-grid">
@@ -130,7 +146,7 @@
         </div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">马尔温-弗里德里希 / 劳诺<span class="player-pos">后卫/门将</span></div>
+          <div class="player-name">马尔温·弗里德里希 / 劳诺<span class="player-pos">后卫/门将</span></div>
           <div class="injury-date">长期伤缺（季前赛受伤）</div>
           <div class="player-impact"><b>战术角色</b>：后防核心/门将主力。<b>对当场影响</b>：防线被迫拼凑，防守漏洞明显。</div>
         </div>
@@ -146,18 +162,18 @@
           <div class="player-impact"><b>战术角色</b>：边路攻击手/反击爆点。<b>对当场影响</b>：边路突破能力受损。</div>
         </div>
         <div class="player-card is-new">
-          <div class="player-name">安斯加尔-克瑙夫<span class="player-pos">前锋</span></div>
+          <div class="player-name">安斯加尔·克瑙夫<span class="player-pos">前锋</span></div>
           <div class="injury-date">2026年8月27日大腿受伤（官方公告）</div>
           <div class="player-impact"><b>战术角色</b>：边路轮换。<b>对当场影响</b>：边路深度下降。</div>
         </div>
         <div class="player-card is-new">
-          <div class="player-name">胡戈-拉松<span class="player-pos">中场</span></div>
+          <div class="player-name">胡戈·拉松<span class="player-pos">中场</span></div>
           <div class="injury-date">赛前确认轻微肌肉伤</div>
           <div class="player-impact"><b>战术角色</b>：中场主力。<b>对当场影响</b>：中场拦截与推进下降。</div>
         </div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">杰西克-恩甘卡姆<span class="player-pos">前锋</span></div>
+          <div class="player-name">杰西克·恩甘卡姆<span class="player-pos">前锋</span></div>
           <div class="injury-date">长期伤缺</div>
           <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：锋线替补深度持续消耗。</div>
         </div>
@@ -166,10 +182,185 @@
     </div>
   </div>
 
+<!-- 12. 科隆 VS 霍芬海姆 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">12. 科隆 VS 霍芬海姆</div><div class="match-league">德甲</div></div>
+    <div class="match-teams">主：科隆　客：霍芬海姆</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">科隆（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">霍芬海姆（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. 美因茨 VS 帕德博恩 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">13. 美因茨 VS 帕德博恩</div><div class="match-league">德甲</div></div>
+    <div class="match-teams">主：美因茨　客：帕德博恩</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">美因茨（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">帕德博恩（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 14. 考文垂 VS 赫尔城 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">14. 考文垂 VS 赫尔城</div><div class="match-league">英超</div></div>
+    <div class="match-teams">主：考文垂　客：赫尔城</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">考文垂（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">赫尔城（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 15. 伯恩茅斯 VS 埃弗顿 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">15. 伯恩茅斯 VS 埃弗顿</div><div class="match-league">英超</div></div>
+    <div class="match-teams">主：伯恩茅斯　客：埃弗顿</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">伯恩茅斯（主）</div>
+      <div class="section-label label-old">老伤</div>
+      <div class="player-card is-old">
+        <div class="player-name">阿德利<span class="player-pos">边锋</span></div>
+        <div class="injury-date">小腿伤势长期缺阵</div>
+        <div class="player-impact"><b>战术角色</b>：边路轮换。<b>对当场影响</b>：边路攻击深度下降。</div>
+      </div>
+      <div class="player-card is-old">
+        <div class="player-name">阿劳霍<span class="player-pos">后卫</span></div>
+        <div class="injury-date">大腿手术长期缺阵</div>
+        <div class="player-impact"><b>战术角色</b>：后防轮换。<b>对当场影响</b>：防线深度受损。</div>
+      </div>
+      <div class="section-label label-new">新伤</div>
+      <div class="player-card is-new">
+        <div class="player-name">克鲁皮<span class="player-pos">前锋</span></div>
+        <div class="injury-date">脚部受伤，预计缺阵3个月</div>
+        <div class="player-impact"><b>战术角色</b>：锋线主力。<b>对当场影响</b>：进攻终结点缺失，锋线需重组。</div>
+      </div>
+      <div class="section-label label-susp">停赛</div>
+      <div class="player-card is-susp">
+        <div class="player-name">克里斯蒂<span class="player-pos">中场</span></div>
+        <div class="injury-date">累积停赛</div>
+        <div class="player-impact"><b>战术角色</b>：中场主力。<b>对当场影响</b>：中场控制力下降。</div>
+      </div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">埃弗顿（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 16. 莱万特 VS 贝蒂斯 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">16. 莱万特 VS 贝蒂斯</div><div class="match-league">西甲</div></div>
+    <div class="match-teams">主：莱万特　客：贝蒂斯</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">莱万特（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">贝蒂斯（客）</div>
+      <div class="section-label label-old">老伤</div>
+      <div class="player-card is-old">
+        <div class="player-name">阿姆拉巴特 / 伊斯科 / 洛塞尔索<span class="player-pos">中场</span></div>
+        <div class="injury-date">中场三人组长期伤缺</div>
+        <div class="player-impact"><b>战术角色</b>：中场组织核心。<b>对当场影响</b>：中场创造力瘫痪，贝蒂斯传控体系难以运转。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 17. 斯特拉斯堡 VS 朗斯 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">17. 斯特拉斯堡 VS 朗斯</div><div class="match-league">法甲</div></div>
+    <div class="match-teams">主：斯特拉斯堡　客：朗斯</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">斯特拉斯堡（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">朗斯（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 18. 维京 VS 奥勒松 -->
+<div class="match-card">
+  <div class="match-header">
+    <div><div class="match-title">18. 维京 VS 奥勒松</div><div class="match-league">挪超</div></div>
+    <div class="match-teams">主：维京　客：奥勒松</div>
+  </div>
+  <div class="teams-grid">
+    <div class="team-col home">
+      <div class="team-name">维京（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+    <div class="team-divider"></div>
+    <div class="team-col away">
+      <div class="team-name">奥勒松（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+    </div>
+  </div>
+</div>
+
   <!-- 19. 热刺 VS 纽卡斯尔联 -->
   <div class="match-card">
     <div class="match-header">
-      <div><div class="match-title">19. 热刺 VS 纽卡斯尔联</div><div class="match-league">英超</div></div>
+      <div>
+        <div class="match-title">19. 热刺 VS 纽卡斯尔联</div>
+        <div class="match-league">英超</div>
+      </div>
       <div class="match-teams">主：热刺　客：纽卡斯尔联</div>
     </div>
     <div class="teams-grid">
@@ -177,7 +368,7 @@
         <div class="team-name">热刺（主）</div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">哈维-西蒙斯<span class="player-pos">前锋/中场</span></div>
+          <div class="player-name">哈维·西蒙斯<span class="player-pos">前锋/中场</span></div>
           <div class="injury-date">十字韧带撕裂，预计2027年2月复出</div>
           <div class="player-impact"><b>战术角色</b>：核心攻击手。<b>对当场影响</b>：前场创造力与爆点严重受损。</div>
         </div>
@@ -188,7 +379,7 @@
         </div>
         <div class="section-label label-new">新伤/存疑</div>
         <div class="player-card is-new">
-          <div class="player-name">麦迪逊 / 帕普-萨尔<span class="player-pos">中场</span></div>
+          <div class="player-name">麦迪逊 / 帕普·萨尔<span class="player-pos">中场</span></div>
           <div class="injury-date">肩部/大腿伤，赛前存疑</div>
           <div class="player-impact"><b>战术角色</b>：中场核心/屏障。<b>对当场影响</b>：中场控制力下降。</div>
         </div>
@@ -199,7 +390,7 @@
         <div class="team-name">纽卡斯尔联（客）</div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">丹-伯恩<span class="player-pos">后卫/队长</span></div>
+          <div class="player-name">丹·伯恩<span class="player-pos">后卫/队长</span></div>
           <div class="injury-date">脚踝韧带损伤，预计9月底复出</div>
           <div class="player-impact"><b>战术角色</b>：防线领袖。<b>对当场影响</b>：防线硬度与经验受损。</div>
         </div>
@@ -222,7 +413,10 @@
   <!-- 20. 多特蒙德 VS 汉堡 -->
   <div class="match-card">
     <div class="match-header">
-      <div><div class="match-title">20. 多特蒙德 VS 汉堡</div><div class="match-league">德甲</div></div>
+      <div>
+        <div class="match-title">20. 多特蒙德 VS 汉堡</div>
+        <div class="match-league">德甲</div>
+      </div>
       <div class="match-teams">主：多特蒙德　客：汉堡</div>
     </div>
     <div class="teams-grid">
@@ -230,72 +424,83 @@
         <div class="team-name">多特蒙德（主）</div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">埃姆雷-詹<span class="player-pos">中场/队长</span></div>
-          <div class="injury-date">十字韧带撕裂，预计缺阵至11月</div>
-          <div class="player-impact"><b>战术角色</b>：中场屏障/后防核心。<b>对当场影响</b>：中场防守硬度与后场出球能力大幅下降。</div>
+          <div class="player-name">埃姆雷·詹<span class="player-pos">中场/队长</span></div>
+          <div class="injury-date">2026年3月1日十字韧带重伤，预计2026年12月7日复出</div>
+          <div class="player-impact"><b>战术角色</b>：中场屏障/后防核心/队长。<b>对当场影响</b>：中场防守硬度与后场出球能力大幅下降，科瓦奇需重组中场。</div>
         </div>
         <div class="player-card is-old">
-          <div class="player-name">施洛特贝克<span class="player-pos">后卫</span></div>
-          <div class="injury-date">脚踝内侧韧带撕裂，预计缺阵至9月中旬</div>
-          <div class="player-impact"><b>战术角色</b>：后防核心。<b>对当场影响</b>：防线出球第一选择消失，被迫启用新人加杜。</div>
+          <div class="player-name">尼科·施洛特贝克<span class="player-pos">后卫</span></div>
+          <div class="injury-date">2026年6月21日内侧韧带撕裂，预计缺席至9月中旬</div>
+          <div class="player-impact"><b>战术角色</b>：后防核心/出球中卫。<b>对当场影响</b>：防线出球第一选择消失，被迫启用新人加杜，防线默契度不足。</div>
         </div>
         <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
-          <div class="player-name">本塞拜尼<span class="player-pos">后卫</span></div>
-          <div class="injury-date">2026年8月22日超级杯撞击肝脏/肋骨受伤</div>
-          <div class="player-impact"><b>战术角色</b>：左翼卫主力。<b>对当场影响</b>：左路攻防受损，出战成疑。</div>
+          <div class="player-name">拉米·本塞拜尼<span class="player-pos">后卫</span></div>
+          <div class="injury-date">2026年8月25日超级杯肋骨+肝部撞击，出战成疑</div>
+          <div class="player-impact"><b>战术角色</b>：左翼卫主力。<b>对当场影响</b>：左路攻防受损，若缺阵需临时调整左路配置。</div>
         </div>
-        <div class="team-form">📊 夏窗大换血（阿德耶米等离队，引进6名新援）。后防双核长期缺阵，科瓦奇只能用安东+加杜拼凑三中卫。进攻端新援需磨合，但主场气势与交锋优势（近5次4胜1平）仍是最大依仗。</div>
+        <div class="player-card is-new">
+          <div class="player-name">穆萨·卡巴<span class="player-pos">前锋</span></div>
+          <div class="injury-date">2026年8月1日受伤，出战存疑</div>
+          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度下降。</div>
+        </div>
+        <div class="team-form">📊 夏窗大换血（阿德耶米等离队，引进6名新援）。后防双核长期缺阵，科瓦奇只能用安东+加杜拼凑三中卫。进攻端新援需磨合，连续14场联赛未能零封，但主场气势与交锋优势（近5次4胜1平）仍是最大依仗。</div>
       </div>
       <div class="team-divider"></div>
       <div class="team-col away">
         <div class="team-name">汉堡（客）</div>
         <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
-          <div class="player-name">米罗-穆海姆<span class="player-pos">后卫/队长</span></div>
-          <div class="injury-date">赛前肌肉受伤</div>
-          <div class="player-impact"><b>战术角色</b>：后防核心/队长。<b>对当场影响</b>：后防领袖缺阵，新中卫组合缺乏默契。</div>
+          <div class="player-name">米罗·穆海姆<span class="player-pos">后卫/队长</span></div>
+          <div class="injury-date">2026年8月9日肌肉/腹股沟挫伤</div>
+          <div class="player-impact"><b>战术角色</b>：后防核心/队长。<b>对当场影响</b>：后防领袖缺阵，新中卫组合缺乏默契，防线指挥系统瘫痪。</div>
+        </div>
+        <div class="player-card is-new">
+          <div class="player-name">乔丹·托鲁纳里格哈<span class="player-pos">后卫</span></div>
+          <div class="injury-date">出战存疑</div>
+          <div class="player-impact"><b>战术角色</b>：中卫轮换。<b>对当场影响</b>：若缺阵，中卫组合雪上加霜。</div>
         </div>
         <div class="section-label label-susp">停赛</div>
         <div class="player-card is-susp">
-          <div class="player-name">沃梅德-奥马里<span class="player-pos">后卫</span></div>
+          <div class="player-name">沃梅德·奥马里<span class="player-pos">后卫</span></div>
           <div class="injury-date">赛前停赛</div>
-          <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：中卫组合雪上加霜。</div>
+          <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：中卫组合被迫重组，防线稳定性大幅下降。</div>
         </div>
         <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
-          <div class="player-name">亚历山大-罗辛-勒莱西特<span class="player-pos">前锋</span></div>
-          <div class="injury-date">脚踝扭伤长期缺阵</div>
-          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度受损。</div>
+          <div class="player-name">亚历山大·罗辛·勒莱西特<span class="player-pos">前锋</span></div>
+          <div class="injury-date">2026年1月24日踝关节扭伤，长期缺阵</div>
+          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度持续受损。</div>
         </div>
-        <div class="team-form">📊 升班马客场作战，后防集体告急。新援达卡（速度型中锋）专克多特残缺防线，主帅波尔津明确稳守反击策略。但周六傍晚开球历史战绩极差，客场爆冷难度大。</div>
+        <div class="team-form">📊 升班马客场作战，后防集体告急（队长+主力中卫+停赛）。新援达卡（速度型中锋）专克多特残缺防线，主帅波尔津明确稳守反击策略。但周六傍晚开球历史战绩极差，客场爆冷难度大。</div>
       </div>
     </div>
   </div>
 
- <!-- 21. 国际米兰 VS 亚特兰大 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">21. 国际米兰 VS 亚特兰大</div><div class="match-league">意甲</div></div>
-    <div class="match-teams">主：国际米兰　客：亚特兰大</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">国际米兰（主）</div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
+  <!-- 21. 国际米兰 VS 亚特兰大 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">21. 国际米兰 VS 亚特兰大</div>
+        <div class="match-league">意甲</div>
+      </div>
+      <div class="match-teams">主：国际米兰　客：亚特兰大</div>
+    </div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">国际米兰（主）</div>
+        <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
           <div class="player-name">巴斯托尼<span class="player-pos">后卫</span></div>
           <div class="injury-date">膝盖受伤，出战成疑（赛前确认）</div>
           <div class="player-impact"><b>战术角色</b>：主力中卫/后场出球点。<b>对当场影响</b>：若缺阵，国米三中卫左路出球体系受损，德弗里需顶替。</div>
         </div>
+        <div class="team-form">📊 进攻端近期哑火（近2场正式比赛未能破门），劳塔罗等攻击手状态待回暖；但主场作战，整体框架仍占优。</div>
       </div>
-      <div class="team-form">📊 进攻端近期哑火（近2场正式比赛未能破门），劳塔罗等攻击手状态待回暖；但主场作战，整体框架仍占优。</div>
-    </div>
-    <div class="team-col away">
-      <div class="team-name">亚特兰大（客）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">亚特兰大（客）</div>
+        <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
           <div class="player-name">斯卡尔维尼<span class="player-pos">后卫</span></div>
           <div class="injury-date">膝关节受伤长期缺阵</div>
@@ -311,47 +516,43 @@
           <div class="injury-date">肌肉损伤长期缺阵</div>
           <div class="player-impact"><b>战术角色</b>：锋线主力。<b>对当场影响</b>：进攻终结点缺失。</div>
         </div>
-      </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
+        <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
           <div class="player-name">艾德森<span class="player-pos">中场</span></div>
           <div class="injury-date">因伤出战成疑</div>
           <div class="player-impact"><b>战术角色</b>：中场屏障。<b>对当场影响</b>：若缺阵，中场拦截能力进一步削弱。</div>
         </div>
+        <div class="team-form">📊 近6次正式比赛对阵国米全败，进1球丢15球，攻防两端被全面压制；本场攻防核心集体缺阵，客场抢分难度极大。</div>
       </div>
-      <div class="team-form">📊 近6次正式比赛对阵国米全败，进1球丢15球，攻防两端被全面压制；本场攻防核心集体缺阵，客场抢分难度极大。</div>
     </div>
   </div>
-</div>
 
-<!-- 22. 阿贾克斯 VS 阿尔克马尔 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">22. 阿贾克斯 VS 阿尔克马尔</div><div class="match-league">荷甲</div></div>
-    <div class="match-teams">主：阿贾克斯　客：阿尔克马尔</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">阿贾克斯（主）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
-        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+  <!-- 22. 阿贾克斯 VS 阿尔克马尔 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">22. 阿贾克斯 VS 阿尔克马尔</div>
+        <div class="match-league">荷甲</div>
       </div>
-      <div class="team-form">📊 主场强势，阵容齐整，控球打法占据场面优势；需警惕阿尔克马尔的反击速度。</div>
+      <div class="match-teams">主：阿贾克斯　客：阿尔克马尔</div>
     </div>
-    <div class="team-col away">
-      <div class="team-name">阿尔克马尔（客）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">阿贾克斯（主）</div>
+        <div class="section-label label-fit">阵容齐整</div>
+        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 主场强势，阵容齐整，控球打法占据场面优势；需警惕阿尔克马尔的反击速度。</div>
+      </div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">阿尔克马尔（客）</div>
+        <div class="section-label label-old">老伤</div>
         <div class="player-card is-old">
           <div class="player-name">吉兹·霍恩坎普<span class="player-pos">前锋</span></div>
           <div class="injury-date">踝关节扭伤长期缺阵</div>
           <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度受损。</div>
         </div>
-      </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
+        <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
           <div class="player-name">约尔迪·克拉西<span class="player-pos">中场</span></div>
           <div class="injury-date">2026年7月26日受伤缺阵</div>
@@ -367,31 +568,31 @@
           <div class="injury-date">2026年7月5日受伤，出战存疑</div>
           <div class="player-impact"><b>战术角色</b>：中场轮换。<b>对当场影响</b>：中场深度进一步受损。</div>
         </div>
+        <div class="team-form">📊 跨赛季各项赛事8场不败，荷兰超级杯4-0大胜埃因霍温夺冠士气高涨；但中场核心克拉西缺阵，本场面对阿贾克斯的主场控制力将面临严峻考验。</div>
       </div>
-      <div class="team-form">📊 跨赛季各项赛事8场不败，荷兰超级杯4-0大胜埃因霍温夺冠士气高涨；但中场核心克拉西缺阵，本场面对阿贾克斯的主场控制力将面临严峻考验。</div>
     </div>
   </div>
-</div>
 
-<!-- 23. 波尔图 VS 本菲卡 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">23. 波尔图 VS 本菲卡</div><div class="match-league">葡超</div></div>
-    <div class="match-teams">主：波尔图　客：本菲卡</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">波尔图（主）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
-        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+  <!-- 23. 波尔图 VS 本菲卡 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">23. 波尔图 VS 本菲卡</div>
+        <div class="match-league">葡超</div>
       </div>
-      <div class="team-form">📊 主场巨龙球场气势如虹，阵容齐整，攻防均衡；面对本菲卡需发挥主场优势。</div>
+      <div class="match-teams">主：波尔图　客：本菲卡</div>
     </div>
-    <div class="team-col away">
-      <div class="team-name">本菲卡（客）</div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">波尔图（主）</div>
+        <div class="section-label label-fit">阵容齐整</div>
+        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 主场巨龙球场气势如虹，阵容齐整，攻防均衡；面对本菲卡需发挥主场优势。</div>
+      </div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">本菲卡（客）</div>
+        <div class="section-label label-new">新伤</div>
         <div class="player-card is-new">
           <div class="player-name">奥尔斯内斯<span class="player-pos">中场</span></div>
           <div class="injury-date">轻伤+急性肠胃炎，预计缺阵</div>
@@ -402,89 +603,88 @@
           <div class="injury-date">右脚受伤缺阵</div>
           <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度下降，但帕夫利迪斯状态火热可弥补。</div>
         </div>
+        <div class="team-form">📊 葡超50场不败金身仍在延续，新帅马尔科·席尔瓦周中欧联杯资格赛两回合8-2大胜哈茨晋级，士气正盛；帕夫利迪斯近期4场6球状态火爆，客场抢分难度不大。</div>
       </div>
-      <div class="team-form">📊 葡超50场不败金身仍在延续，新帅马尔科·席尔瓦周中欧联杯资格赛两回合8-2大胜哈茨晋级，士气正盛；帕夫利迪斯近期4场6球状态火爆，客场抢分难度不大。</div>
     </div>
   </div>
-</div>
 
-<!-- 24. 洛杉矶FC VS 迈阿密国际 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">24. 洛杉矶FC VS 迈阿密国际</div><div class="match-league">美职</div></div>
-    <div class="match-teams">主：洛杉矶FC　客：迈阿密国际</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">洛杉矶FC（主）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
-        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+  <!-- 24. 洛杉矶FC VS 迈阿密国际 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">24. 洛杉矶FC VS 迈阿密国际</div>
+        <div class="match-league">美职</div>
       </div>
-      <div class="team-form">📊 主场战斗力强劲，阵容齐整，进攻火力充足；需依靠整体配合限制迈阿密的球星个人能力。</div>
+      <div class="match-teams">主：洛杉矶FC　客：迈阿密国际</div>
     </div>
-    <div class="team-col away">
-      <div class="team-name">迈阿密国际（客）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">洛杉矶FC（主）</div>
+        <div class="section-label label-fit">阵容齐整</div>
         <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 主场战斗力强劲，阵容齐整，进攻火力充足；需依靠整体配合限制迈阿密的球星个人能力。</div>
       </div>
-      <div class="team-form">📊 客场作战，阵容齐整，依赖球星个人能力；面对洛杉矶FC的主场强势需发挥反击效率。</div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">迈阿密国际（客）</div>
+        <div class="section-label label-fit">阵容齐整</div>
+        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 客场作战，阵容齐整，依赖球星个人能力；面对洛杉矶FC的主场强势需发挥反击效率。</div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- 25. 纽约红牛 VS 纽约城 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">25. 纽约红牛 VS 纽约城</div><div class="match-league">美职</div></div>
-    <div class="match-teams">主：纽约红牛　客：纽约城</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">纽约红牛（主）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
-        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+  <!-- 25. 纽约红牛 VS 纽约城 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">25. 纽约红牛 VS 纽约城</div>
+        <div class="match-league">美职</div>
       </div>
-      <div class="team-form">📊 纽约德比，主场优势，阵容齐整，高位逼抢战术；需利用主场气势抢开局。</div>
+      <div class="match-teams">主：纽约红牛　客：纽约城</div>
     </div>
-    <div class="team-col away">
-      <div class="team-name">纽约城（客）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">纽约红牛（主）</div>
+        <div class="section-label label-fit">阵容齐整</div>
         <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 纽约德比，主场优势，阵容齐整，高位逼抢战术；需利用主场气势抢开局。</div>
       </div>
-      <div class="team-form">📊 客场德比，阵容齐整，控球传导风格；双方实力接近，比赛节奏将是关键。</div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">纽约城（客）</div>
+        <div class="section-label label-fit">阵容齐整</div>
+        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 客场德比，阵容齐整，控球传导风格；双方实力接近，比赛节奏将是关键。</div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- 26. 波特兰伐木者 VS 西雅图海湾人 -->
-<div class="match-card">
-  <div class="match-header">
-    <div><div class="match-title">26. 波特兰伐木者 VS 西雅图海湾人</div><div class="match-league">美职</div></div>
-    <div class="match-teams">主：波特兰伐木者　客：西雅图海湾人</div>
-  </div>
-  <div class="teams-grid">
-    <div class="team-col home">
-      <div class="team-name">波特兰伐木者（主）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
-        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+  <!-- 26. 波特兰伐木者 VS 西雅图海湾人 -->
+  <div class="match-card">
+    <div class="match-header">
+      <div>
+        <div class="match-title">26. 波特兰伐木者 VS 西雅图海湾人</div>
+        <div class="match-league">美职</div>
       </div>
-      <div class="team-form">📊 主场作战，阵容齐整，但近期状态起伏不定；需利用主场气势限制海湾人反击。</div>
+      <div class="match-teams">主：波特兰伐木者　客：西雅图海湾人</div>
     </div>
-    <div class="team-col away">
-      <div class="team-name">西雅图海湾人（客）</div>
-      <div class="injury-section">
-        <div class="section-label fit">阵容齐整</div>
+    <div class="teams-grid">
+      <div class="team-col home">
+        <div class="team-name">波特兰伐木者（主）</div>
+        <div class="section-label label-fit">阵容齐整</div>
         <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 主场作战，阵容齐整，但近期状态起伏不定；需利用主场气势限制海湾人反击。</div>
       </div>
-      <div class="team-form">📊 客场挑战，阵容齐整，防守稳健，擅长反击；面对伐木者需发挥防守纪律性。</div>
+      <div class="team-divider"></div>
+      <div class="team-col away">
+        <div class="team-name">西雅图海湾人（客）</div>
+        <div class="section-label label-fit">阵容齐整</div>
+        <div class="fit-note">未检索到确切伤停名单，无新增伤停，主力框架完整。</div>
+        <div class="team-form">📊 客场挑战，阵容齐整，防守稳健，擅长反击；面对伐木者需发挥防守纪律性。</div>
+      </div>
     </div>
   </div>
-</div>
 
 <!-- 27. 尤文图斯 VS 帕尔马 -->
 <div class="match-card">
@@ -495,185 +695,82 @@
   <div class="teams-grid">
     <div class="team-col home">
       <div class="team-name">尤文图斯（主）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
-        <div class="player-card is-old">
-          <div class="player-name">伊尔迪兹<span class="player-pos">前锋</span></div>
-          <div class="injury-date">2026年8月24日左脚第五跖骨骨折，预计缺阵3个月</div>
-          <div class="player-impact"><b>战术角色</b>：左路边路爆点/创造力核心。<b>对当场影响</b>：左路进攻体系需推倒重来，新援需顶替其爆点作用。</div>
-        </div>
+      <div class="section-label label-new">新伤</div>
+      <div class="player-card is-new">
+        <div class="player-name">加蒂<span class="player-pos">后卫</span></div>
+        <div class="injury-date">赛前确认无法出战（待官方细节）</div>
+        <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：防线轮换受损，特罗伊洛与瓦伦蒂的中卫组合默契度存疑。</div>
       </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
-        <div class="player-card is-new">
-          <div class="player-name">加蒂<span class="player-pos">后卫</span></div>
-          <div class="injury-date">大腿/肌肉伤，约休1-2周（赛前确认）</div>
-          <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：防线轮换受损，特罗伊洛与瓦伦蒂的中卫组合默契度存疑。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">麦肯尼 / 图拉姆<span class="player-pos">中场</span></div>
-          <div class="injury-date">肌肉疲劳/身体不适，出战成疑</div>
-          <div class="player-impact"><b>战术角色</b>：中场主力。<b>对当场影响</b>：中场控制力存疑，洛卡特利需承担更多组织任务。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">埃卡托<span class="player-pos">前锋</span></div>
-          <div class="injury-date">肌肉挫伤，出战成疑</div>
-          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度下降。</div>
-        </div>
+      <div class="player-card is-new">
+        <div class="player-name">埃卡托尔<span class="player-pos">前锋</span></div>
+        <div class="injury-date">赛前确认无法出战（待官方细节）</div>
+        <div class="player-impact"><b>战术角色</b>：锋线新援。<b>对当场影响</b>：进攻深度下降。</div>
       </div>
-      <div class="team-form">📊 首轮客场1-0小胜弗罗西诺内但全场19射仅1球，进攻效率低下；伊尔迪兹骨折重创左路体系，但布雷默、加洛卡特利、道格拉斯·路易斯中轴仍在，主场对阵升班马帕尔马仍占优。</div>
+      <div class="team-form">📊 首轮客场1-0小胜弗罗西诺内但全场19射仅1球，进攻效率低下；伊尔迪兹骨折重创左路体系，但布雷默、洛卡特利、道格拉斯·路易斯中轴仍在，主场对阵升班马帕尔马仍占优。</div>
     </div>
+    <div class="team-divider"></div>
     <div class="team-col away">
       <div class="team-name">帕尔马（客）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
-        <div class="player-card is-old">
-          <div class="player-name">克雷马斯基<span class="player-pos">中场</span></div>
-          <div class="injury-date">半月板伤，预计缺至10月中旬</div>
-          <div class="player-impact"><b>战术角色</b>：中场主力。<b>对当场影响</b>：中场控制力严重不足。</div>
-        </div>
-      </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
-        <div class="player-card is-new">
-          <div class="player-name">卡维利亚<span class="player-pos">中场</span></div>
-          <div class="injury-date">2026年8月20日腹股沟/疝气伤缺阵</div>
-          <div class="player-impact"><b>战术角色</b>：中场节拍器/核心。<b>对当场影响</b>：中场组织瘫痪，锋线失去支援。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">巴洛格<span class="player-pos">后卫</span></div>
-          <div class="injury-date">大腿受伤缺阵</div>
-          <div class="player-impact"><b>战术角色</b>：后防主力。<b>对当场影响</b>：防线稳定性下降。</div>
-        </div>
-      </div>
-      <div class="injury-section">
-        <div class="section-label suspension">停赛</div>
-        <div class="player-card is-susp">
-          <div class="player-name">布里奇<span class="player-pos">后卫</span></div>
-          <div class="injury-date">赛前停赛</div>
-          <div class="player-impact"><b>战术角色</b>：后防轮换。<b>对当场影响</b>：防线深度进一步受损。</div>
-        </div>
-        <div class="player-card is-susp">
-          <div class="player-name">乔儒<span class="player-pos">前锋</span></div>
-          <div class="injury-date">赛前停赛</div>
-          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻端雪上加霜，头号射手佩莱格里诺夏窗已转会佛罗伦萨。</div>
-        </div>
-      </div>
-      <div class="team-form">📊 升班马首轮主场0-1负卡利亚里，全场仅2次射正；中前场核心集体缺阵+头号射手转会，进攻端近乎瘫痪；客场挑战尤文近10年未胜（上次安联球场赢球还要追溯到2015年4月），抢分难度极大。</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
+      <div class="team-form">📊 升班马客场挑战尤文历史战绩不佳；进攻端需仰仗佩莱格里诺，但面对尤文中轴防线抢分难度较大。</div>
     </div>
   </div>
 </div>
 
-<!-- 28. 马赛 VS 摩纳哥 -->
+<!-- 28. 塞维利亚 VS 马德里竞技 -->
 <div class="match-card">
   <div class="match-header">
-    <div><div class="match-title">28. 马赛 VS 摩纳哥</div><div class="match-league">法甲</div></div>
-    <div class="match-teams">主：马赛　客：摩纳哥</div>
+    <div><div class="match-title">28. 塞维利亚 VS 马德里竞技</div><div class="match-league">西甲</div></div>
+    <div class="match-teams">主：塞维利亚　客：马德里竞技</div>
   </div>
   <div class="teams-grid">
     <div class="team-col home">
-      <div class="team-name">马赛（主）</div>
-      <div class="injury-section">
-        <div class="section-label suspension">停赛</div>
-        <div class="player-card is-susp">
-          <div class="player-name">昆滕·廷贝尔<span class="player-pos">中场</span></div>
-          <div class="injury-date">上赛季末累积5张黄牌停赛</div>
-          <div class="player-impact"><b>战术角色</b>：中场主力。<b>对当场影响</b>：中场控制力下降，需重组中场配置。</div>
-        </div>
-        <div class="player-card is-susp">
-          <div class="player-name">Alexi Koum<span class="player-pos">中场</span></div>
-          <div class="injury-date">赛前停赛</div>
-          <div class="player-impact"><b>战术角色</b>：中场轮换。<b>对当场影响</b>：中场深度进一步受损。</div>
-        </div>
-      </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
-        <div class="player-card is-new">
-          <div class="player-name">巴列尔迪<span class="player-pos">后卫</span></div>
-          <div class="injury-date">小腿不适，出战成疑</div>
-          <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：防线核心存疑，若缺阵中卫组合稳定性大幅下降。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">孔多比亚<span class="player-pos">中场</span></div>
-          <div class="injury-date">带伤未完整合练，出战成疑</div>
-          <div class="player-impact"><b>战术角色</b>：中场老将/经验支柱。<b>对当场影响</b>：中场经验与硬度受损。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">穆姆巴涅 / CJ·伊根-赖利<span class="player-pos">前锋/后卫</span></div>
-          <div class="injury-date">肌肉拉伤，出战成疑</div>
-          <div class="player-impact"><b>战术角色</b>：锋线/防线轮换。<b>对当场影响</b>：阵容深度受损。</div>
-        </div>
-      </div>
-      <div class="team-form">📊 新帅奥利维拉刚接手仍在磨合，季前赛有赢有输；中后场伤停严重，廷贝尔停赛+巴列尔迪存疑，防线承压；但主场气势+裁判尺度红利，新赛季开局抢分意愿强烈。</div>
+      <div class="team-name">塞维利亚（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
     </div>
+    <div class="team-divider"></div>
     <div class="team-col away">
-      <div class="team-name">摩纳哥（客）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
-        <div class="player-card is-old">
-          <div class="player-name">萨利苏<span class="player-pos">后卫</span></div>
-          <div class="injury-date">十字韧带受伤，预计9月中旬复出</div>
-          <div class="player-impact"><b>战术角色</b>：主力中卫。<b>对当场影响</b>：防线核心长期缺阵，中卫组合被迫重组。</div>
-        </div>
-        <div class="player-card is-old">
-          <div class="player-name">南野拓实<span class="player-pos">中场</span></div>
-          <div class="injury-date">十字韧带受伤，预计9月初复出</div>
-          <div class="player-impact"><b>战术角色</b>：中场攻击手。<b>对当场影响</b>：进攻创造力受损。</div>
-        </div>
+      <div class="team-name">马德里竞技（客）</div>
+      <div class="section-label label-old">老伤</div>
+      <div class="player-card is-old">
+        <div class="player-name">阿尔瓦雷斯<span class="player-pos">前锋</span></div>
+        <div class="injury-date">连续三天因身体不适缺席训练</div>
+        <div class="player-impact"><b>战术角色</b>：锋线主力。<b>对当场影响</b>：进攻终结点缺失，西蒙尼锋线选择捉襟见肘。</div>
       </div>
-      <div class="injury-section">
-        <div class="section-label new">新伤</div>
-        <div class="player-card is-new">
-          <div class="player-name">安苏·法蒂<span class="player-pos">前锋</span></div>
-          <div class="injury-date">小腿不适，本赛季尚未首秀，预计9月复出</div>
-          <div class="player-impact"><b>战术角色</b>：边路攻击手。<b>对当场影响</b>：进攻深度受损，但本场预计继续缺阵。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">阿布林<span class="player-pos">前锋</span></div>
-          <div class="injury-date">脚部受伤，缺阵数日</div>
-          <div class="player-impact"><b>战术角色</b>：锋线轮换。<b>对当场影响</b>：进攻深度下降。</div>
-        </div>
-        <div class="player-card is-new">
-          <div class="player-name">埃丹·迪奥普<span class="player-pos">中场</span></div>
-          <div class="injury-date">大腿受伤，预计9月初复出</div>
-          <div class="player-impact"><b>战术角色</b>：中场轮换。<b>对当场影响</b>：中场深度受损。</div>
-        </div>
+      <div class="player-card is-old">
+        <div class="player-name">索尔洛特<span class="player-pos">前锋</span></div>
+        <div class="injury-date">肌肉伤势未愈</div>
+        <div class="player-impact"><b>战术角色</b>：锋线主力。<b>对当场影响</b>：马竞遭遇自西蒙尼执教以来最严重锋线危机，被迫启用新人。</div>
       </div>
-      <div class="team-form">📊 新帅菲利佩·路易斯带队近期状态火热（近6场仅1负），法蒂、萨利苏、南野拓实等核心伤缺但阵容厚度仍可弥补；客场挑战马赛需发挥快速反击特长，法蒂预计继续缺席。</div>
+      <div class="player-card is-old">
+        <div class="player-name">罗梅罗<span class="player-pos">后卫</span></div>
+        <div class="injury-date">仍需恢复时间</div>
+        <div class="player-impact"><b>战术角色</b>：主力中卫（1.2亿欧新援）。<b>对当场影响</b>：防线核心缺阵，新援中卫组合默契度不足。</div>
+      </div>
+      <div class="team-form">📊 夏窗豪掷1.2亿欧引进罗梅罗、李刚仁、尤尔曼、格里马尔多，但首轮2-0开门红后次轮2-2被比利亚雷亚尔逼平，勒诺尔芒红牌+两粒点球令西蒙尼承压；本场远征皮斯胡安，残阵出击难度极大。</div>
     </div>
   </div>
 </div>
 
-<!-- 29. 巴塞罗那 VS 毕尔巴鄂竞技 -->
+<!-- 29. 华盛顿 VS 洛杉矶FC -->
 <div class="match-card">
   <div class="match-header">
-    <div><div class="match-title">29. 巴塞罗那 VS 毕尔巴鄂竞技</div><div class="match-league">西甲</div></div>
-    <div class="match-teams">主：巴塞罗那　客：毕尔巴鄂竞技</div>
+    <div><div class="match-title">29. 华盛顿 VS 洛杉矶FC</div><div class="match-league">美职</div></div>
+    <div class="match-teams">主：华盛顿　客：洛杉矶FC</div>
   </div>
   <div class="teams-grid">
     <div class="team-col home">
-      <div class="team-name">巴塞罗那（主）</div>
-      <div class="injury-section">
-        <div class="section-label old">老伤</div>
-        <div class="player-card is-old">
-          <div class="player-name">加维<span class="player-pos">中场</span></div>
-          <div class="injury-date">因伤缺席（赛前大名单未入选）</div>
-          <div class="player-impact"><b>战术角色</b>：中场能量/逼抢核心。<b>对当场影响</b>：中场强度受损，但罗德里、佩德里、费尔明、奥尔莫中场厚度充足可弥补。</div>
-        </div>
-      </div>
-      <div class="team-form">📊 弗利克执教第三年，联赛首战大胜埃尔切攻击火力全开；夏窗戈登（纽卡）、阿德耶米（多特）、坎塞洛、比西乌等强援加盟，锋线亚马尔/拉菲尼亚/戈登/阿德耶米轮换深度拉满；罗德里伤愈回归进入大名单，主场诺坎普气势如虹。</div>
+      <div class="team-name">华盛顿（主）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
     </div>
+    <div class="team-divider"></div>
     <div class="team-col away">
-      <div class="team-name">毕尔巴鄂竞技（客）</div>
-      <div class="injury-section">
-        <div class="section-label suspension">停赛</div>
-        <div class="player-card is-susp">
-          <div class="player-name">贝尔奇切<span class="player-pos">后卫</span></div>
-          <div class="injury-date">对塞维利亚红牌停赛（西班牙足协后认定误判但既成事实）</div>
-          <div class="player-impact"><b>战术角色</b>：主力左后卫/盯防亚马尔的关键人。<b>对当场影响</b>：左路防守体系崩塌，博伊罗或约翰内科顶替均缺乏经验，防守亚马尔需全队高度警惕补位。</div>
-        </div>
-      </div>
-      <div class="team-form">📊 新帅泰尔齐奇赛季首秀，夏季零引援仅靠巴斯克青训顶班；拉波尔特有望回到首发搭档耶雷中卫，尼科·威廉姆斯大概率从左路出击冲击埃里克·加西亚一侧；季前热身负于马赛和亚特兰大体系未跑顺，客场诺坎普抢分难度极大。</div>
+      <div class="team-name">洛杉矶FC（客）</div>
+      <div class="section-label label-fit">阵容齐整</div>
+      <div class="fit-note">未检索到赛前官方伤停公告，主力框架完整，以赛前发布会为准。</div>
     </div>
   </div>
 </div>
