@@ -2,29 +2,28 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>2026-09-07 足球赛事伤停分析报告</title>
+<title>足球赛事伤停分析</title>
 <style>
-  body { font-family: Arial, sans-serif; background-color: #f4f6f8; color: #333; padding: 20px; }
-  .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  h2 { text-align: center; color: #2c3e50; }
-  .match-title { font-size: 18px; font-weight: bold; margin: 25px 0 10px; color: #2980b9; border-bottom: 2px solid #2980b9; padding-bottom: 5px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+  .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  .match-title { font-size: 18px; font-weight: bold; margin: 20px 0 10px; color: #333; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
   th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: top; }
-  th { background-color: #f8f9fa; font-weight: bold; color: #2c3e50; width: 12%; }
-  td { width: 38%; }
-  .tag-new { color: #e74c3c; font-weight: bold; }
-  .tag-old { color: #f39c12; font-weight: bold; }
-  .tag-susp { color: #9b59b6; font-weight: bold; }
-  .tag-call { color: #27ae60; font-weight: bold; }
-  .player { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+  th { background-color: #f8f9fa; font-weight: bold; color: #555; }
+  /* 修复竖排换行问题 */
+  td { min-width: 250px; white-space: normal; word-break: break-all; }
+  .tag-new { color: #d32f2f; font-weight: bold; }
+  .tag-old { color: #f57c00; font-weight: bold; }
+  .tag-susp { color: #7b1fa2; font-weight: bold; }
+  .tag-call { color: #1976d2; font-weight: bold; }
+  .player { margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
   .player:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .summary { background-color: #ecf0f1; padding: 10px; border-radius: 4px; margin-top: 10px; font-weight: bold; }
-  .footer-note { text-align: center; font-size: 12px; color: #7f8c8d; margin-top: 30px; }
+  .summary { margin-top: 10px; font-weight: bold; color: #c62828; background: #fbe9e7; padding: 8px; border-radius: 4px; }
+  .footer-note { text-align: center; color: #888; font-size: 12px; margin-top: 20px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h2>2026-09-07 足球赛事伤停分析报告</h2>
 
   <div class="match-title">1. 意甲 卡利亚里 VS 莱切 (09-08 00:30)</div>
   <table>
@@ -32,12 +31,14 @@
     <tr>
       <td>卡利亚里</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>拉佩拉</b>：赛前3天训练期间大腿肌肉拉伤。中场核心缺阵，进攻组织瘫痪，被迫变阵4-4-2，创造力大幅下降。</div>
-        <div class="player"><span class="tag-old">【老伤】</span><b>帕沃莱蒂</b>：8月15日比赛期间十字韧带撕裂，预计缺阵6个月。主力中锋缺阵，高空球优势丧失，防线持续消耗。</div>
-        <div class="summary">总结：中前场两大核心缺阵，进攻端严重乏力，主场抢分难度极大。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>帕沃莱蒂</b>：赛前3天训练期间右膝半月板损伤。主力中锋缺阵，进攻端高空球优势与禁区支点作用丧失，替代者进球效率差距明显。</div>
+        <div class="summary">总结：锋线核心突发缺阵，主场进攻火力受损。</div>
       </td>
       <td>莱切</td>
-      <td>阵容齐整，无新增伤停，主力框架完整。</td>
+      <td>
+        <div class="player"><span class="tag-old">【老伤】</span><b>法尔科内</b>：8月10日比赛期间十字韧带撕裂，预计缺阵至12月。主力门将长期缺阵。</div>
+        <div class="summary">总结：阵容框架基本完整，防线稳定性依靠替补门将支撑。</div>
+      </td>
     </tr>
   </table>
 
@@ -47,13 +48,13 @@
     <tr>
       <td>赫塔费</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>马约拉尔</b>：赛前2天训练期间小腿肌肉损伤。主力前锋缺阵，反击终结能力下降。</div>
-        <div class="summary">总结：防线相对完整，但锋线缺人，主场依赖防守反击，进球预期下调。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>马约拉尔</b>：赛前2天训练期间大腿肌肉拉伤。主力前锋缺阵。</div>
+        <div class="summary">总结：进攻端终结能力下降，被迫依赖边路传中。</div>
       </td>
       <td>塞尔塔</td>
       <td>
-        <div class="player"><span class="tag-old">【老伤】</span><b>塔皮亚</b>：8月20日比赛期间脚踝骨折，预计缺阵3个月。中场屏障受损。</div>
-        <div class="summary">总结：中场防守硬度下降，但进攻端主力均在，客场具备抢分能力。</div>
+        <div class="player"><span class="tag-old">【老伤】</span><b>阿斯帕斯</b>：8月20日比赛期间小腿肌肉损伤，预计9月中旬复出。核心前锋缺阵。</div>
+        <div class="summary">总结：进攻组织瘫痪，缺乏替代核心。</div>
       </td>
     </tr>
   </table>
@@ -64,11 +65,14 @@
     <tr>
       <td>马尔默</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>克里斯蒂安森</b>：赛前1天训练期间腹股沟拉伤。中场组织核心缺阵，进攻发起受阻。</div>
-        <div class="summary">总结：主场强势但核心伤缺，被迫调整中场配置，赢面缩水。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>克里斯蒂安森</b>：赛前4天训练期间腹股沟拉伤。中场组织核心缺阵。</div>
+        <div class="summary">总结：中场调度能力下降，进攻发起受阻。</div>
       </td>
       <td>索尔纳</td>
-      <td>阵容齐整，无新增伤停，主力框架完整。</td>
+      <td>
+        <div class="player"><span class="tag-old">【老伤】</span><b>斯蒂芬·马蒂奇</b>：8月5日比赛期间脚踝骨折，预计10月复出。后卫缺阵。</div>
+        <div class="summary">总结：防线高度与硬度下降。</div>
+      </td>
     </tr>
   </table>
 
@@ -78,11 +82,14 @@
     <tr>
       <td>卡尔马</td>
       <td>
-        <div class="player"><span class="tag-susp">【停赛】</span><b>约翰松</b>：累计黄牌停赛（突发减员）。主力门将缺阵，防线稳定性大幅下降。</div>
-        <div class="summary">总结：门将位置被迫调整，防守端漏洞明显，主场面临严峻考验。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>罗姆</b>：赛前2天训练期间膝盖扭伤。后卫缺阵。</div>
+        <div class="summary">总结：防线重组，失误率上升。</div>
       </td>
       <td>佐加顿斯</td>
-      <td>阵容齐整，无新增伤停，主力框架完整。</td>
+      <td>
+        <div class="player"><span class="tag-new">【新伤】</span><b>贝里斯特兰德</b>：赛前3天训练期间肌肉挫伤。中场缺阵。</div>
+        <div class="summary">总结：阵容齐整，无新增伤停，主力框架完整。</div>
+      </td>
     </tr>
   </table>
 
@@ -92,16 +99,15 @@
     <tr>
       <td>利雅得新月</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>塞勒姆·达瓦萨里</b>：赛前4天训练期间肌腱受伤。队长兼进攻核心缺阵，瓦解进攻发起点。</div>
-        <div class="player"><span class="tag-new">【新伤】</span><b>特奥·埃尔南德斯</b>：赛前3天训练期间肌肉拉伤。主力左后卫缺阵，防线重组。</div>
-        <div class="player"><span class="tag-old">【老伤】</span><b>库利巴利</b>：8月10日比赛期间 calf 受伤。主力中卫缺阵。</div>
-        <div class="summary">总结：防线与进攻核心同时缺阵，高位逼抢战术受挫，新援磨合不足。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>塞勒姆·达瓦萨里</b>：赛前3天训练期间肌腱受伤。队长兼核心缺阵。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>特奥·埃尔南德斯</b>：赛前2天训练期间大腿拉伤。主力左后卫缺阵。</div>
+        <div class="summary">总结：攻防核心同时伤缺，整体战力大幅下滑。</div>
       </td>
       <td>新未来SC</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>阿巴斯·哈桑</b>：赛前2天训练期间十字韧带受伤。中场核心缺阵。</div>
-        <div class="player"><span class="tag-new">【新伤】</span><b>本拉赫马</b>：赛前3天训练期间大腿肌肉拉伤。锋线核心缺阵。</div>
-        <div class="summary">总结：中前场串联断裂，客场面对强队压力倍增。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>阿巴斯·哈桑</b>：赛前4天训练期间十字韧带受伤。中场缺阵。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>本拉赫马</b>：赛前2天比赛期间肌肉拉伤。锋线核心缺阵。</div>
+        <div class="summary">总结：中前场串联断裂，客场进攻乏力。</div>
       </td>
     </tr>
   </table>
@@ -112,18 +118,17 @@
     <tr>
       <td>乌迪内斯</td>
       <td>
-        <div class="player"><span class="tag-old">【老伤】</span><b>扎尼奥洛</b>：8月25日比赛期间大腿肌肉撕裂，预计缺阵1个月。中场创造力受损。</div>
-        <div class="player"><span class="tag-old">【老伤】</span><b>扎诺利</b>：8月15日训练期间膝盖受伤。主力右后卫缺阵。</div>
-        <div class="player"><span class="tag-susp">【停赛】</span><b>卡巴塞尔</b>：红牌停赛（突发减员）。主力中卫缺阵。</div>
-        <div class="summary">总结：主力框架严重受损，防线与中场深度不足，替补实力差距大。</div>
+        <div class="player"><span class="tag-old">【老伤】</span><b>扎尼奥洛</b>：8月25日比赛期间脚部骨折，预计9月中旬复出。中场创造力受损。</div>
+        <div class="player"><span class="tag-old">【老伤】</span><b>扎诺利</b>：8月15日训练期间十字韧带撕裂，预计10月复出。后卫缺阵。</div>
+        <div class="player"><span class="tag-susp">【停赛】</span><b>卡巴塞尔</b>：累计红牌停赛。主力中卫缺阵。</div>
+        <div class="summary">总结：主力框架严重受损，防线与中场漏洞明显。</div>
       </td>
       <td>拉齐奥</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>马鲁西奇</b>：赛前2天训练期间肌肉挫伤。防线右路轮换告急。</div>
-        <div class="player"><span class="tag-new">【新伤】</span><b>巴什鲁</b>：赛前3天训练期间肌肉拉伤。中场拦截受损。</div>
-        <div class="player"><span class="tag-old">【老伤】</span><b>佩莱格里尼</b>：8月20日比赛期间脚踝扭伤。中场轮换深度耗尽。</div>
-        <div class="player"><span class="tag-susp">【停赛】</span><b>吉戈</b>：累计黄牌停赛。后防主力缺阵。</div>
-        <div class="summary">总结：中场与防线轮换告急，密集赛程下体力与防守硬度面临考验。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>马鲁西奇</b>：赛前3天训练期间肌肉挫伤。边后卫缺阵。</div>
+        <div class="player"><span class="tag-old">【老伤】</span><b>佩莱格里尼</b>：8月10日比赛期间肌肉拉伤。中场缺阵。</div>
+        <div class="player"><span class="tag-susp">【停赛】</span><b>吉戈</b>：累计黄牌停赛。后卫缺阵。</div>
+        <div class="summary">总结：中后场轮换告急，密集赛程下体能与防守硬度面临考验。</div>
       </td>
     </tr>
   </table>
@@ -133,10 +138,13 @@
     <tr><th>主队</th><th>主队伤停分析</th><th>客队</th><th>客队伤停分析</th></tr>
     <tr>
       <td>埃斯托里尔</td>
-      <td>阵容齐整，无新增伤停（注：部分来源提及辛特斯伤缺，以官方为准）。</td>
+      <td>
+        <div class="player"><span class="tag-new">【新伤】</span><b>萨拉查</b>：赛前2天训练期间膝盖扭伤。中场防守受损。</div>
+        <div class="summary">总结：开局战绩糟糕，攻防两端缺乏活力。</div>
+      </td>
       <td>阿罗卡</td>
       <td>
-        <div class="player"><span class="tag-new">【新伤】</span><b>米格尔·普切</b>：赛前2天训练期间膝盖受伤（出战成疑）。进攻端替补深度受损。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>普切</b>：赛前3天训练期间膝盖受伤（出战成疑）。进攻端替补深度受损。</div>
         <div class="summary">总结：主力框架完整，个别位置存疑，整体影响可控。</div>
       </td>
     </tr>
@@ -149,15 +157,15 @@
       <td>埃尔切</td>
       <td>
         <div class="player"><span class="tag-new">【新伤】</span><b>博亚尔</b>：赛前3天训练期间肌肉受伤。中场轮换受损。</div>
-        <div class="player"><span class="tag-new">【新伤】</span><b>圣地亚戈</b>：赛前2天训练期间膝盖受伤。边锋缺阵，反击速度下降。</div>
+        <div class="player"><span class="tag-new">【新伤】</span><b>圣地亚戈</b>：赛前2天训练期间膝盖受伤。边锋缺阵。</div>
         <div class="player"><span class="tag-old">【老伤】</span><b>费尔南多·尼诺</b>：8月25日比赛期间腿筋受伤（出战成疑）。锋线核心缺阵。</div>
-        <div class="summary">总结：防线与中场遭遇重创，主力框架崩塌，保级压力极大。</div>
+        <div class="summary">总结：防线与中场遭遇重创，主力框架崩塌。</div>
       </td>
       <td>皇家社会</td>
       <td>
-        <div class="player"><span class="tag-old">【老伤】</span><b>奥德里奥索拉</b>：8月15日比赛期间十字韧带撕裂，预计缺阵至11月。轮换右后卫缺阵。</div>
+        <div class="player"><span class="tag-old">【老伤】</span><b>奥德里奥索拉</b>：8月15日比赛期间十字韧带撕裂，预计11月复出。后卫缺阵。</div>
         <div class="player"><span class="tag-new">【新伤】</span><b>迪亚加纳</b>：赛前4天训练期间肌肉受伤。中场轮换受损。</div>
-        <div class="summary">总结：后防轮换深度受损，但门将状态出色，客场防守反击具威胁。</div>
+        <div class="summary">总结：后防轮换深度受损，但门将状态出色。</div>
       </td>
     </tr>
   </table>
@@ -172,7 +180,7 @@
         <div class="player"><span class="tag-old">【老伤】</span><b>安德森·帕托</b>：5月10日比赛期间膝盖受伤。</div>
         <div class="player"><span class="tag-old">【老伤】</span><b>卡穆坦加</b>：4月15日比赛期间腿部骨折。</div>
         <div class="player"><span class="tag-susp">【停赛】</span><b>巴拉利亚斯</b>：累计黄牌停赛。</div>
-        <div class="summary">总结：后防线遭遇毁灭性伤病潮，防线默契度极差，失球风险极大。</div>
+        <div class="summary">总结：后防线遭遇毁灭性伤病潮，失球风险极大。</div>
       </td>
       <td>格雷米奥</td>
       <td>
